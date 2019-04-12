@@ -1,11 +1,23 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react'
+import styled from 'styled-components'
 
-const Component = props => {
-  return <div>TEST</div>;
-};
+const Div = styled.div`
+  height: 200px;
+  width: 200px;
+  display: inline-block
+`
+const Image = styled.img`
+object-fit: cover;
+width: 200px;
+height:200px
+`
 
-export default styled(Component)`
-  margin: 10px;
-  color: red;
-`;
+const Box = ({ url, number, handleClick }) => {
+  return (
+    <Div>
+      <Image src={url} onClick={el => handleClick(number)} />
+    </Div>
+  )
+}
+
+export default Box
