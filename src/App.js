@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import Box from './Box'
 import styled from 'styled-components'
+import { asideInMatrix, size } from './Utils.js'
 
 const Board = styled.div`
     width:600px;
@@ -9,7 +10,7 @@ const Board = styled.div`
     margin:auto
 `
 
-const tiles = [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+const tiles = [...Array(size ** 2).keys()]
 
 class Game extends Component {
   constructor (props) {
@@ -20,7 +21,7 @@ class Game extends Component {
   }
 
   handleClick (number) {
-    console.log(number)
+    asideInMatrix(number)
   }
 
   render () {
