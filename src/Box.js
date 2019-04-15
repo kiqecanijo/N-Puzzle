@@ -6,16 +6,29 @@ const Div = styled.div`
   width: 200px;
   display: inline-block
 `
+const P = styled.p`
+  font-size:30px;
+  color: red
+`
+
 const Image = styled.img`
 object-fit: cover;
 width: 200px;
 height:200px
 `
 
-const Box = ({ url, number, handleClick }) => {
+const Box = ({ lastItem, number, handleClick }) => {
   return (
     <Div>
-      <Image src={url} onClick={el => handleClick(number)} />
+      <P
+        onClick={el => handleClick(number)}
+      >{number != 9 ? number : 'X' }</P>
+      {
+        <Image
+          onClick={el => handleClick(number)}
+          src={number != lastItem ? `https://picsum.photos/200/200?image=${number}` : 'https://picsum.photos/g/200/300'}
+        />
+      }
     </Div>
   )
 }
