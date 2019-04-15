@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { asideInMatrix, size } from './Utils.js'
 
 const Board = styled.div`
-    width:600px;
+    width:${size * 200}px;
     display:block;
     margin:auto
 `
@@ -15,13 +15,14 @@ class Game extends Component {
     const tiles = [...Array(size ** 2).keys()].sort((a, b) => 0.5 - Math.random())
     super(props)
     this.state = {
-      tiles,
-      handle: null
+      tiles
     }
   }
 
-  handleClick (number) {
-    asideInMatrix(this.state.tiles, number) && console.log('done')
+  handleClick (handleNumber) {
+    const tiles = asideInMatrix(this.state.tiles, handleNumber)
+
+    this.setState(prevState => ({ ...prevState, tiles: tiles }))
   }
 
   render () {
