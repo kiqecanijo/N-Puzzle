@@ -13,9 +13,7 @@ const Board = styled.div`
 class Game extends Component {
   constructor (props) {
     const temporal = [...Array(size ** 2 + 1).keys()].splice(1)
-
-    // const tiles = [...Array(size ** 2 + 1).keys()].splice(1).sort((a, b) => 0.5 - Math.random())
-    const tiles = randomizer(20, temporal)
+    const tiles = randomizer(1, temporal)
 
     super(props)
     this.state = {
@@ -32,10 +30,8 @@ class Game extends Component {
     const sampleTiles = [...this.state.tiles]
       .sort((a, b) => a >= b ? 1 : -1)
 
-    console.log(this.state.tiles)
-    console.log(sampleTiles)
-
-    sampleTiles === this.state.tiles && alert('resuelto!!')
+    // compare two arrays
+    sampleTiles.every((el, index) => el === this.state.tiles[index]) && alert('done')
   }
 
   render () {

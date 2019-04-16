@@ -23,12 +23,12 @@ const Box = ({ lastItem, number, handleClick }) => {
       <P
         onClick={el => handleClick(number)}
       >{number != 9 ? number : 'X' }</P>
-      {
+      {/*
         <Image
           onClick={el => handleClick(number)}
           src={number != lastItem ? `https://picsum.photos/200/200?image=${number}` : 'https://picsum.photos/g/200/300'}
         />
-      }
+      */}
     </Div>
   )
 }

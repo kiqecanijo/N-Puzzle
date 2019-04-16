@@ -1,8 +1,5 @@
-
 export const size = 3
-
 export const asideInMatrix = (tiles, number) => {
-  // TODO think in algoritm to know if its aside 0 number
   const zeroIndex = tiles.indexOf(size ** 2)
   const numberIndex = tiles.indexOf(number)
   const aside = (
@@ -15,7 +12,6 @@ export const asideInMatrix = (tiles, number) => {
   )
 
   // TODO fix this imperative shit
-
   const newTiles = [...tiles]
   const numberValue = tiles[numberIndex]
   const zeroValue = tiles[zeroIndex]
@@ -24,9 +20,17 @@ export const asideInMatrix = (tiles, number) => {
 }
 
 export const randomizer = (steps, matrix) => {
-  const randomNumber = Math.round(Math.random() * matrix.length)
+  const zeroIndex = matrix.indexOf(size ** 2)
+  const options = [
+    matrix[zeroIndex + 1],
+    matrix[zeroIndex - 1],
+    matrix[zeroIndex + size],
+    matrix[zeroIndex - size]
+  ].filter(Boolean)
 
+  const randomNumber = options[Math.floor(Math.random() * options.length)]
+  // change with aside tild
   const newMatrix = asideInMatrix(matrix, randomNumber)
-
+  // does return a new matrix ?
   return steps > 0 ? randomizer(steps - (matrix !== newMatrix ? 1 : 0), newMatrix) : newMatrix
 }
