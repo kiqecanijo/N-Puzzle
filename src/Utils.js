@@ -1,5 +1,8 @@
+
+// GRID side size
 export const size = 3
-export const dificult = 60
+// GRID moves before start
+export const dificult = 200
 
 export const asideInMatrix = (tiles, number) => {
   const zeroIndex = tiles.indexOf(size ** 2)

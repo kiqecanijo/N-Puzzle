@@ -7,7 +7,13 @@ import { asideInMatrix, size, randomizer, dificult } from './Utils.js'
 const Board = styled.div`
     width:${size * 200}px;
     display:block;
-    margin:auto
+    margin:auto;
+`
+const Info = styled.div`
+  font-size: 20px;
+  color: tomato;
+  font-weight: bold;
+
 `
 
 class Game extends Component {
@@ -20,14 +26,18 @@ class Game extends Component {
       tiles,
       counting: false,
       time: 0,
-      solved: false
+      solved: false,
+      moves: 0
     }
   }
 
   handleClick (handleNumber) {
     // counter
-    !this.state.counting && setInterval(el => this.setState(prevState => ({ time: prevState.time + 1 })), 1000)
+    !this.state.counting && setInterval(el => this.setState(prevState => ({ time: !this.state.solved ? prevState.time + 1 : prevState.time })), 1000)
     !this.state.counting && this.setState({ counting: true })
+
+    !this.state.solved && this.setState(({ moves }) => ({ moves: moves += 1 }))
+    console.log(this.state)
 
     const tiles = !this.state.solved ? asideInMatrix(this.state.tiles, handleNumber) : this.state.tiles
     this.setState({ tiles })
@@ -41,18 +51,17 @@ class Game extends Component {
     sampleTiles.every((el, index) => el === this.state.tiles[index])
 
     completed && this.setState({ solved: true })
-    completed && alert('done')
+    completed && alert('solved')
   }
 
   render () {
     return (
       <div className="App">
+        <Info>Moves: {this.state.moves}</Info>
+        <Info>Time: {this.state.time} seconds</Info>
         <Board>
-          {this.state.tiles.map(number => <Box lastItem={this.state.tiles.length} handleClick={this.handleClick.bind(this)} number={number} />)}
+          {this.state.tiles.map(number => <Box handleClick={this.handleClick.bind(this)} number={number} />)}
         </Board>
-
-        <button >start counting</button>
-        Time: {this.state.time}
       </div>
     )
   }

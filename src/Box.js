@@ -1,34 +1,28 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { size } from './Utils'
 
-const Div = styled.div`
-  height: 200px;
-  width: 200px;
-  display: inline-block
-`
-const P = styled.p`
-  font-size:30px;
-  color: red
-`
+const Box = ({ number, handleClick }) => {
+  const Div = styled.div`
+    height: 196px;
+    width: 196px;
+    display: inline-flex;
+    align-items: center;
+    background-color: ${number !== size ** 2 ? 'tomato' : 'black'} ;
+    margin:2px;
+  `
+  const P = styled.p`
+    margin:auto;
+    font-size: 40px;
+    color:white;
+    font-weight: bold;
+  `
 
-const Image = styled.img`
-object-fit: cover;
-width: 200px;
-height:200px
-`
-
-const Box = ({ lastItem, number, handleClick }) => {
   return (
-    <Div>
-      <P
-        onClick={el => handleClick(number)}
-      >{number != 9 ? number : 'X' }</P>
-      {/*
-        <Image
-          onClick={el => handleClick(number)}
-          src={number != lastItem ? `https://picsum.photos/200/200?image=${number}` : 'https://picsum.photos/g/200/300'}
-        />
-      */}
+    <Div onClick={el => handleClick(number)}>
+      <P>
+        {number}
+      </P>
     </Div>
   )
 }
