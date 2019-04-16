@@ -1,4 +1,6 @@
 export const size = 3
+export const dificult = 60
+
 export const asideInMatrix = (tiles, number) => {
   const zeroIndex = tiles.indexOf(size ** 2)
   const numberIndex = tiles.indexOf(number)
@@ -11,7 +13,7 @@ export const asideInMatrix = (tiles, number) => {
     numberIndex - size === zeroIndex
   )
 
-  // TODO fix this imperative shit
+  // TODO fix this imperative code
   const newTiles = [...tiles]
   const numberValue = tiles[numberIndex]
   const zeroValue = tiles[zeroIndex]
