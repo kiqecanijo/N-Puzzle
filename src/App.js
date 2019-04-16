@@ -35,9 +35,7 @@ class Game extends Component {
     // counter
     !this.state.counting && setInterval(el => this.setState(prevState => ({ time: !this.state.solved ? prevState.time + 1 : prevState.time })), 1000)
     !this.state.counting && this.setState({ counting: true })
-
     !this.state.solved && this.setState(({ moves }) => ({ moves: moves += 1 }))
-    console.log(this.state)
 
     const tiles = !this.state.solved ? asideInMatrix(this.state.tiles, handleNumber) : this.state.tiles
     this.setState({ tiles })
