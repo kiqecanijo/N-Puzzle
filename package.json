@@ -5,6 +5,7 @@
   "dependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-facebook-login": "^4.1.1",
     "react-scripts": "2.1.8",
     "react-spring": "^8.0.19",
     "styled-components": "^4.2.0"
@@ -15,7 +16,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start-sw": "http-server ./build"
-
   },
   "eslintConfig": {
     "extends": "react-app"

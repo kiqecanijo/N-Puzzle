@@ -3,6 +3,7 @@
 export const size = 3
 // GRID moves before start
 export const dificult = 200
+export const entrypoint = 'https://centralmedia.com.mx/facebook/cliente-nutribaby/jaguarete/entrypoint.php'
 
 export const asideInMatrix = (tiles, number) => {
   const zeroIndex = tiles.indexOf(size ** 2)

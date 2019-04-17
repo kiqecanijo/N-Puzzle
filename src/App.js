@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import './App.css'
 import Box from './Box'
 import styled from 'styled-components'
-import { asideInMatrix, size, randomizer, dificult } from './Utils.js'
+import { asideInMatrix, size, randomizer, dificult, entrypoint } from './Utils.js'
+import FacebookLogin from 'react-facebook-login'
+import Home from './Home'
 
 const Board = styled.div`
     width:${size * 200}px;
@@ -13,8 +14,14 @@ const Info = styled.div`
   font-size: 20px;
   color: tomato;
   font-weight: bold;
-
 `
+
+const encode = data => {
+  return btoa(JSON.stringify(data))
+}
+const cleanText = text => {
+  return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+}
 
 class Game extends Component {
   constructor (props) {
@@ -27,7 +34,8 @@ class Game extends Component {
       counting: false,
       time: 0,
       solved: false,
-      moves: 0
+      moves: 0,
+      user: false
     }
   }
 
@@ -42,24 +50,60 @@ class Game extends Component {
   }
 
   componentDidUpdate () {
+    console.log(this.state.user)
     const sampleTiles = [...this.state.tiles]
       .sort((a, b) => a >= b ? 1 : -1)
     // compare two arrays
     const completed = !this.state.solved &&
     sampleTiles.every((el, index) => el === this.state.tiles[index])
-
     completed && this.setState({ solved: true })
     completed && alert('solved')
+  }
+
+  responseFacebook (res) {
+    res.id && fetch(entrypoint, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=ISO-8859-1'
+      },
+      body: encode({
+        action: 'login',
+        user_id: res.id,
+        name: cleanText(res.name)
+      })
+    })
+      .then(res => res.json())
+      .then(res => {
+        this.setState({ user: res })
+      })
   }
 
   render () {
     return (
       <div className="App">
-        <Info>Moves: {this.state.moves}</Info>
-        <Info>Time: {this.state.time} seconds</Info>
+        {!this.state.user.user_id &&
+          <Home>
+            <FacebookLogin
+              appId="262814888001740"
+              autoLoad={false}
+              fields="name,email,picture"
+              callback={this.responseFacebook.bind(this)} />
+          </Home>}
+
+        {this.state.user.user_id &&
+          <Board>
+            <Info>Moves: {this.state.moves}</Info>
+            <Info>Time: {this.state.time} seconds</Info>
+            {this.state.tiles.map(number => <Box handleClick={this.handleClick.bind(this)} number={number} />)}
+          </Board>}
+
+        {this.state.user.user_id &&
         <Board>
+          <Info>Moves: {this.state.moves}</Info>
+          <Info>Time: {this.state.time} seconds</Info>
           {this.state.tiles.map(number => <Box handleClick={this.handleClick.bind(this)} number={number} />)}
-        </Board>
+        </Board>}
       </div>
     )
   }
