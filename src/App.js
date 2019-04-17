@@ -150,9 +150,9 @@ class Game extends Component {
 
   render () {
     return (
+      !this.state.user.score &&
       <div className="App">
-        {!this.state.user.score &&
-        !this.state.user.user_id &&
+        {!this.state.user.user_id &&
           <Intro>
             <FacebookLogin
               appId="262814888001740"
@@ -226,17 +226,16 @@ class Game extends Component {
           <Info>Moves: {this.state.moves}</Info>
           <Info>Time: {this.state.time} seconds</Info>
           {this.state.tiles.map(number => <Box handleClick={this.handleClick.bind(this)} number={number} />)}
-        </Board> ||
-        <div>
-          <h1>{this.state.user.name}</h1><br/>
-          <h1>{this.state.user.mistakes}</h1><br/>
-          <h1>{this.state.user.start_time}</h1><br/>
-          <img src={this.state.user.photo}/>
-          {console.log(this.state.user.top)}
+        </Board>}
+      </div> ||
+      <div>
+        <h1>{this.state.user.name}</h1><br/>
+        <h1>{this.state.user.mistakes}</h1><br/>
+        <h1>{this.state.user.start_time}</h1><br/>
+        <img src={this.state.user.photo}/>
+        {console.log(this.state.user.top)}
 
-        </div>}
       </div>
-
     )
   }
 }
