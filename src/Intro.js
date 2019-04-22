@@ -11,18 +11,8 @@ const Div = styled.div`
 const Intro = props => {
   return (
     <Div>
-
       <img src={'./static/banderines.png'}/>
       <img src={'./static/descubre.png'}/>
-      <Div>
-        <p>
-          Sé una de las tres primeras personas en descubrir
-          todos los pares en el menor tiempo posible y con la
-          menor cantidad de errores.
-          ¿Estás listo para el reto?
-        </p>
-
-      </Div>
       <br/>
       {props.children}
     </Div>

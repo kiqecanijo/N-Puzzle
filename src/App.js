@@ -4,23 +4,41 @@ import styled from 'styled-components'
 import { asideInMatrix, size, randomizer, dificult, entrypoint } from './Utils.js'
 import FacebookLogin from 'react-facebook-login'
 import Intro from './Intro'
+import ScoreArea from './ScoreArea'
+import Rules from './Rules'
+import Top from './Top'
 
 const Form = styled.form`
-  margin:auto;
-  text-align:center;
+margin:auto;
+text-align:center;
+`
 
+const Button = styled.button`
+border: 0px solid;
+font-size: 20px;
+padding: 10px;
+text-align:center;
+width: 200px;
+margin:auto;
+background-color:#fecd72;
+color: #003453;
+font-weight: bold;
+cursor:pointer;
+`
+
+const Div = styled.div`
+padding: 0px;
+text-align:center;
+max-width: 800px;
+margin:auto
 `
 
 const Board = styled.div`
-    width:${size * 200}px;
-    display:block;
-    margin:auto;
+width:${size * 200}px;
+display:block;
+margin:auto;
 `
-const Info = styled.div`
-  font-size: 20px;
-  color: tomato;
-  font-weight: bold;
-`
+
 const inputStyles = {
   padding: '15px',
   width: '300px',
@@ -56,16 +74,14 @@ class Game extends Component {
 
   handleClick (handleNumber) {
     // counter
-
-    console.log(handleNumber)
     !this.state.counting && setInterval(el => this.setState(prevState => ({ time: !this.state.solved ? prevState.time + 1 : prevState.time })), 1000)
     !this.state.counting && this.setState({ counting: true })
 
     const tiles = !this.state.solved ? asideInMatrix(this.state.tiles, handleNumber) : this.state.tiles
 
     handleNumber !== size ** 2 &&
-     tiles !== asideInMatrix(this.state.tiles, handleNumber) &&
-     !this.state.solved && this.setState(({ moves }) => ({ moves: moves += 1 }))
+    tiles !== asideInMatrix(this.state.tiles, handleNumber) &&
+    !this.state.solved && this.setState(({ moves }) => ({ moves: moves += 1 }))
 
     this.setState({ tiles })
   }
@@ -139,32 +155,39 @@ class Game extends Component {
     })
       .then(res => res.json())
       .then(response => {
-        console.log(response)
         response.user_id &&
-            this.setState({
-              ...this.state,
-              user: response
-            })
+      this.setState({
+        ...this.state,
+        user: response
+      })
       })
   }
-
   render () {
     return (
       !this.state.user.score &&
       <div className="App">
         {!this.state.user.user_id &&
-          <Intro>
-            <FacebookLogin
-              appId="262814888001740"
-              autoLoad={false}
-              fields="name,email,picture"
-              callback={this.responseFacebook.bind(this)} />
-          </Intro>
+        <Intro>
+          <Div>
+            <p>
+        Sé una de las tres primeras personas en descubrir
+        todos los pares en el menor tiempo posible y con la
+        menor cantidad de errores.
+        ¿Estás listo para el reto?
+            </p>
+          </Div>
+          <FacebookLogin
+            appId="262814888001740"
+            autoLoad={true}
+            fields="name,email,picture"
+            callback={this.responseFacebook.bind(this)} />
+        </Intro>
         }
-
         {this.state.user.user_id && !this.state.user.full_name &&
+        <Intro>
           <Form onSubmit={this.sumbitForm.bind(this)}>
-            <p className={'bold'}>Regístrate</p>
+            <p
+              className={'bold'}>Regístrate</p>
             <input
               style={inputStyles}
               type="text"
@@ -207,35 +230,32 @@ class Game extends Component {
               }}
             />
             <br />
-            <button
+            <br />
+            <Button
               disabled={
                 !this.state.user.name ||
-                      (this.state.user.phone !== null
-                        ? this.state.user.phone.length < 8
-                        : !this.state.user.phone) ||
-                      !this.state.user.email
+          (this.state.user.phone !== null
+            ? this.state.user.phone.length < 8
+            : !this.state.user.phone) ||
+            !this.state.user.email
               }
             >Siguiente
-            </button>
+            </Button>
+            <br/>
+          *Aceptas los términos de privacidad
           </Form>
-
+        </Intro>
         }
-
         {this.state.user.user_id && this.state.user.full_name &&
-        <Board>
-          <Info>Moves: {this.state.moves}</Info>
-          <Info>Time: {this.state.time} seconds</Info>
-          {this.state.tiles.map(number => <Box handleClick={this.handleClick.bind(this)} number={number} />)}
-        </Board>}
+          <Board>
+            <Rules/>
+            <ScoreArea moves={this.state.moves} time={this.state.time} />
+            {this.state.tiles.map(number => <Box handleClick={this.handleClick.bind(this)} number={number} />)}
+          </Board>
+        }
       </div> ||
-      <div>
-        <h1>{this.state.user.name}</h1><br/>
-        <h1>{this.state.user.mistakes}</h1><br/>
-        <h1>{this.state.user.start_time}</h1><br/>
-        <img src={this.state.user.photo}/>
-        {console.log(this.state.user.top)}
+        <Top user={this.state.user} top={this.state.user.top} />
 
-      </div>
     )
   }
 }
