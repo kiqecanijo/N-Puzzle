@@ -18,6 +18,7 @@ const Rules = props => {
   `
 
   const Rules = styled.div`
+  z-index: 999;
   font-weight: 600;
   font-size:20px;
     height: 120%;

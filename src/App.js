@@ -250,7 +250,7 @@ class Game extends Component {
           <Board>
             <Rules/>
             <ScoreArea moves={this.state.moves} time={this.state.time} />
-            {this.state.tiles.map(number => <Box handleClick={this.handleClick.bind(this)} number={number} />)}
+            {this.state.tiles.map((number, index) => <Box handleClick={this.handleClick.bind(this)} number={number} index={index + 1} />)}
           </Board>
         }
       </div> ||

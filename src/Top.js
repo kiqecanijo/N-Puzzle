@@ -42,14 +42,14 @@ const Top = props => {
       <img src={'./static/banderines.png'}/>
       <You>
         <img src={'./static/jaguarete.png'}/>
-        <thanks>
+        <Thanks>
         ¡Gracias por jugar!
           <YouScore>
             Tus<br/>movimientos: {props.user.mistakes}
             <br/>
             Tu<br/>tiempo : {props.user.start_time}
           </YouScore>
-        </thanks>
+        </Thanks>
       </You>
 
       <Thanks>¡Las puntuaciones más altas!</Thanks>
@@ -64,7 +64,7 @@ const Top = props => {
           </tr>
           {props.top.map((user, index) =>
             <tr>
-              <Td > {index + 1 }</Td>
+              <Td style={{ color: index == 0 && 'gold' || index == 1 && 'silver' || index == 2 && 'orange' }} > {index + 1 }</Td>
               <Td colspan="2"> <Img src={user.photo}/></Td>
               <Td colspan="2">{user.name}</Td>
               <Td >{user.mistakes}</Td>
