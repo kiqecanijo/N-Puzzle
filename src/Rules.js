@@ -67,7 +67,7 @@ const Rules = props => {
         </ol>
 
           Conoce más de la dinámica dando clic aquí:<br/>
-        <a className="gold" href="https://www.facebook.com/NutriBabyMexico/app/171841683292560/" >Términos y Condiciones.</a>
+        <a target="_blank" className="gold" href="https://www.facebook.com/NutriBabyMexico/app/171841683292560/" >Términos y Condiciones.</a>
         <br/>
         <br/>
         <Button

@@ -26,7 +26,8 @@ const ScoreArea = props => {
   max-width: 500px;
   `
   const Img = styled.img`
-  width: 20%;
+  width: 30%;
+  margin: 0px 10px;
   `
 
   return (

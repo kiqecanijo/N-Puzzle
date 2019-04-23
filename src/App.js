@@ -13,6 +13,14 @@ margin:auto;
 text-align:center;
 `
 
+const Checkbox = styled.input`
+width:20px;
+height: 20px;
+vertical-align:middle;
+border:0px;
+
+`
+
 const Button = styled.button`
 ${props => props.disabled && `
      background-color: gray;
@@ -81,7 +89,8 @@ class Game extends Component {
       time: 0,
       solved: false,
       moves: 0,
-      user: false
+      user: false,
+      checked: false
     }
   }
 
@@ -144,7 +153,6 @@ class Game extends Component {
       .then(res => res.json())
       .then(res => {
         this.setState({ user: res })
-        console.log(this.state.user)
       })
   }
 
@@ -222,7 +230,7 @@ class Game extends Component {
           </Div>
           <FacebookLogin
             appId="262814888001740"
-            autoLoad={true}
+            autoLoad={false}
             textButton={'Ingresa con facebook'}
             fields="name,email,picture"
             callback={this.responseFacebook.bind(this)} />
@@ -247,6 +255,8 @@ class Game extends Component {
               }}
             />
             <br />
+            {!this.state.user.name && 'ingrese un nombre válido'}
+            <br/>
             <input
               style={inputStyles}
               type="number"
@@ -260,6 +270,8 @@ class Game extends Component {
                 this.setState(prevState => ({ user: { ...prevState.user, phone: event.target.value } }))
               }}
             />
+            <br/>
+            {this.state.user.phone !== null && this.state.user.phone.length < 8 && 'Introduce un teléfono válido'}
             <br />
             <input
               style={inputStyles}
@@ -275,19 +287,25 @@ class Game extends Component {
               }}
             />
             <br />
+            {!this.state.user.email && 'ingrese un email válido'}
             <br />
+            <Checkbox type="checkbox" checked={this.state.checked} onChange={ event => this.setState(prevState => ({ checked: true })) }/>
+           *Aceptas los <a target="_blank" href="https://www.facebook.com/NutriBabyMexico/app/171841683292560/" className="gold">términos de privacidad</a>
+            <br/>
+            <br/>
+
             <Button
               disabled={
                 !this.state.user.name ||
-          (this.state.user.phone !== null
-            ? this.state.user.phone.length < 8
-            : !this.state.user.phone) ||
-            !this.state.user.email
+         (this.state.user.phone !== null
+           ? this.state.user.phone.length < 8
+           : !this.state.user.phone) ||
+           !this.state.user.email ||
+           !this.state.checked
               }
             >Siguiente
             </Button>
-            <br/>
-          *Aceptas los términos de privacidad
+
           </Form>
         </Intro>
         }
