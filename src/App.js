@@ -178,7 +178,7 @@ class Game extends Component {
           </Div>
           <FacebookLogin
             appId="262814888001740"
-            autoLoad={true}
+            autoLoad={false}
             fields="name,email,picture"
             callback={this.responseFacebook.bind(this)} />
         </Intro>

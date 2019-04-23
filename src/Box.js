@@ -32,7 +32,8 @@ const Box = ({ number, handleClick, index }) => {
     text-align:center;
     opacity: ${index === number || number === size ** 2 ? 1 : 0.6};
     background-image: url('./numbers/${number}.png');
-    background-blend-mode: ${number == size ** 2 && 'exclusion' || 'unset'};
+    background-blend-mode: ${number == size ** 2 && 'color-burn' || 'unset'};
+    background-color: orange;
 
   `
   // <Img onClick={event => handleClick(number)} src={`./numbers/${number}.png`} />
