@@ -7,10 +7,11 @@ const Div = styled.div`
  margin:auto;
 `
 const You = styled.div`
-display:inline-flex;
-font-size: 34px;
+display:flex;
+font-size: 30px;
 font-weight: 800;
-text-align:left
+text-align:center;
+
 `
 const Thanks = styled.h1`
 font-size: 50px;
@@ -34,22 +35,34 @@ const Th = styled(Td)
 const Img = styled.img`
   width: 60px;
 `
+const Mid = styled.div`
+  width: ${/* window.innerWidth < 600 ? 100 : 50 */50}%;
+  display: block;
+  text-align:center;
+  position:relative
+`
 
 const Top = props => {
   return (
     <Div>
-
       <img src={'./static/banderines.png'}/>
       <You>
-        <img src={'./static/jaguarete.png'}/>
-        <Thanks>
+        <Mid>
+          <img src={'./static/jaguarete.png'}/>
+        </Mid>
+        <Mid>
+          <Thanks>
         ¡Gracias por jugar!
-          <YouScore>
+            <YouScore>
             Tus<br/>movimientos: {props.user.mistakes}
-            <br/>
+              <br/>
             Tu<br/>tiempo : {props.user.start_time}
-          </YouScore>
-        </Thanks>
+              <br/>
+            Tu<br/>actual posición : {props.top.filter(el => el.mistakes > 0 && el.start_time > 0).map(el => el.name).indexOf(props.user.name) + 1}
+            </YouScore>
+          </Thanks>
+        </Mid>
+
       </You>
 
       <Thanks>¡Las puntuaciones más altas!</Thanks>
@@ -62,7 +75,7 @@ const Top = props => {
             <th > Movimientos </th>
             <th > Tiempo </th>
           </tr>
-          {props.top.map((user, index) =>
+          {props.top.filter(el => el.mistakes > 0 && el.start_time > 0).map((user, index) =>
             <tr>
               <Td style={{ color: index == 0 && 'gold' || index == 1 && 'silver' || index == 2 && 'orange' }} > {index + 1 }</Td>
               <Td colspan="2"> <Img src={user.photo}/></Td>

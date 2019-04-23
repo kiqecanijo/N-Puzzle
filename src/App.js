@@ -14,13 +14,17 @@ text-align:center;
 `
 
 const Button = styled.button`
+${props => props.disabled && `
+     background-color: gray;
+  ` || `
+  background-color: #fecd72;
+  `}
 border: 0px solid;
 font-size: 20px;
 padding: 10px;
 text-align:center;
 width: 200px;
 margin:auto;
-background-color:#fecd72;
 color: #003453;
 font-weight: bold;
 cursor:pointer;
@@ -34,9 +38,18 @@ margin:auto
 `
 
 const Board = styled.div`
-width:${size * 200}px;
+width:${size * 160}px;
 display:block;
 margin:auto;
+`
+const Places = styled.div`
+  display:inline-block;
+  position: relative;
+  text-align:center;
+  width:30%;
+  vertical-align:top;
+  font-size:20px;
+  font-weight: 600;
 `
 
 const inputStyles = {
@@ -124,12 +137,14 @@ class Game extends Component {
         action: 'login',
         user_id: res.id,
         name: cleanText(res.name),
-        photo: res.picture.data.url
+        photo: res.picture.data.url,
+        email: res.email
       })
     })
       .then(res => res.json())
       .then(res => {
         this.setState({ user: res })
+        console.log(this.state.user)
       })
   }
 
@@ -172,13 +187,43 @@ class Game extends Component {
             <p>
         Sé una de las tres primeras personas en descubrir
         todos los pares en el menor tiempo posible y con la
-        menor cantidad de errores.
-        ¿Estás listo para el reto?
+        menor cantidad de errores.<br/><br/>
+              <b>¿Estás listo para el reto?</b>
             </p>
+            <Places>
+              <p className={'gold'}>Primer lugar:</p>
+            </Places>
+            <Places>
+              <p className={'gold'}>Segundo lugar:</p>
+            </Places><Places>
+              <p className={'gold'}>Tercer lugar:</p>
+            </Places>
+            <Places>
+              <p>Set de arte, monedero
+              electrónico con $300 en
+              una prestigada tienda
+              de autoservicio y
+              NutriBaby 3®
+              Stick Pack</p>
+            </Places>
+            <Places>
+
+              <p>Juguete didáctico y
+              NutriBaby 3®
+              Stick Pack</p>
+            </Places>
+            <Places>
+
+              <p>Balón de futbol y
+              NutriBaby 3®
+               Stick Pack </p>
+            </Places>
+
           </Div>
           <FacebookLogin
             appId="262814888001740"
-            autoLoad={false}
+            autoLoad={true}
+            textButton={'Ingresa con facebook'}
             fields="name,email,picture"
             callback={this.responseFacebook.bind(this)} />
         </Intro>

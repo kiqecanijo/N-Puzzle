@@ -22,10 +22,11 @@ const ScoreArea = props => {
 
   `
   const Div = styled.div`
-  text-align:center
+  text-align:center;
+  max-width: 500px;
   `
   const Img = styled.img`
-  width: 30%;
+  width: 20%;
   `
 
   return (

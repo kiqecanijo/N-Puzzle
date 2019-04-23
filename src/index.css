@@ -12,8 +12,8 @@ body {
 }
 
 p {
-  font-size:24px;
-  font-weight:800;
+  font-size:20px;
+  font-weight:600;
 }
 
 p.bold{
@@ -29,4 +29,14 @@ h5 {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+img {
+  width: 80%;
+  position: relative;
+  margin: -10px;
+  height: auto;
+  max-width: 500px;
+}
+.gold{
+  color:gold;
 }

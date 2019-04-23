@@ -22,8 +22,8 @@ const Box = ({ number, handleClick, index }) => {
 
   const Div = styled.div`
   background-color: #fff;
-    height: 196px;
-    width: 196px;
+    height: 156px;
+    width: 156px;
     margin: 1px 2px;
     display: inline-flex;
     align-items: center;
