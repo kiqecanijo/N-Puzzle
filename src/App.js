@@ -233,6 +233,7 @@ class Game extends Component {
             autoLoad={false}
             textButton={'Ingresa con facebook'}
             fields="name,email,picture"
+            isMobile={false}
             callback={this.responseFacebook.bind(this)} />
         </Intro>
         }

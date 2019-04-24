@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
+const secondsToMinutes = seconds => Math.floor(seconds / 60) + ':' + ('0' + Math.floor(seconds % 60)).slice(-2)
+
 const Div = styled.div`
  max-width: 800px;
  text-align:center;
@@ -56,7 +58,7 @@ const Top = props => {
             <YouScore>
             Tus<br/>movimientos: {props.user.mistakes}
               <br/>
-            Tu<br/>tiempo : {props.user.start_time}
+            Tu<br/>tiempo : {secondsToMinutes(props.user.start_time)}
               <br/>
             Tu<br/>actual posición : {props.top.filter(el => el.mistakes > 0 && el.start_time > 0).map(el => el.name).indexOf(props.user.name) + 1}
             </YouScore>
@@ -81,7 +83,7 @@ const Top = props => {
               <Td colspan="2"> <Img src={user.photo}/></Td>
               <Td colspan="2">{user.name}</Td>
               <Td >{user.mistakes}</Td>
-              <Td >{user.start_time}</Td>
+              <Td >{secondsToMinutes(user.start_time)}</Td>
             </tr>
           )}
         </tbody>

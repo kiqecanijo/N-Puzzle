@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
+const secondsToMinutes = seconds => Math.floor(seconds / 60) + ':' + ('0' + Math.floor(seconds % 60)).slice(-2)
+
 const ScoreArea = props => {
   const { moves, time } = props
 
@@ -34,7 +36,7 @@ const ScoreArea = props => {
     <Div>
       <Img src={'./static/descubre.png'} />
       <Info>Movimientos: <Box>{moves}</Box></Info>
-      <Info>Tiempo: <Box>{time} Segundos </Box></Info>
+      <Info>Tiempo: <Box>{secondsToMinutes(time)} Segundos </Box></Info>
     </Div>
   )
 }
