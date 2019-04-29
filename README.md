@@ -3,10 +3,9 @@
 ![](demo/demo.gif)
 ### Change size :
  just edit `src/Utils.js`
- you can also edit  the number of previus random steps after start the game
-
-![](demo/config.png)
-![](demo/3x3.png)
+ you can also edit  the number of previus random steps after start the game <br />
+![](demo/config.png) <br />
+![](demo/3x3.png) <br />
 ![](demo/4x4.png)
 
 ## Usage:
